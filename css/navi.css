@@ -1,0 +1,39 @@
+.navi_titlebar{
+	background: #9AC;
+	border: 1px solid #89B;
+	cursor: move;
+	font-size: 10px;
+	line-height: 10px;
+	padding: 2px 0;
+	text-align: center;
+	color: #222;
+}
+        
+.navi_wrap
+{
+    position:absolute;
+    top:10px;
+    left:400px;
+}
+
+
+.navi_titlebar
+{
+    text-align:center;
+}
+        
+.navi_body{
+    width:250px;
+    height:250px;
+    background:#FFF;
+    border:1px solid #000;
+}
+        
+.navi_point{
+    position:relative;
+    left:0px;
+    top:0px;
+    border:1px solid red;
+    width:10px;
+    height:10px;
+}

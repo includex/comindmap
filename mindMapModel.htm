@@ -1,0 +1,86 @@
+<html>
+
+<head>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+	
+	<!-- jquery  -->
+    <script src="./js/lib/jquery-1.7.2.js" type="text/javascript"></script>
+    
+    <!-- jquery.plugin : http://threedubmedia.com -->
+    <script src="./js/lib/jquery.event.drag-2.2.js" type="text/javascript"></script>
+    <script src="./js/lib/jquery.event.drag.live-2.2.js" type="text/javascript"></script>
+
+    <script src="./js/lib/jquery.event.drop-2.2.js" type="text/javascript"></script>
+    <script src="./js/lib/jquery.event.drop.live-2.2.js" type="text/javascript"></script>
+    
+    <!-- comindmap.js -->
+    <script src="./js/mindmap/Connector.js" type="text/javascript"></script>
+    <script src="./js/mindmap/Node.js" type="text/javascript"></script>
+
+    <script src="./js/navi/Navigation.js" type="text/javascript"></script>
+
+	<!-- comindmap.css -->
+    <link type="text/css" href="./css/mindmap.css" rel="stylesheet" />
+    <link type="text/css" href="./css/navi.css" rel="stylesheet" />
+</head>
+<body>
+<script type="text/javascript">
+    cnt = 0;
+    var rootNode = null;
+    var navi = null;
+
+    jQuery(function ($) {
+        rootNode = new Node();
+        rootNode.init($(".wrap"), 100, 100, 0);
+
+        //네비게이션 0.5초단위 svg dom복사: 개선필요
+        navi = new Navigation();
+        navi.init($(document.body), $(".screen"), $(".wrap"));
+        window.setInterval("navi.applyNavigation();", 500);
+
+        $('.delete').drop(function (e, dd) {
+            if ($(dd.drag).data("object") !== undefined) {
+                $(dd.drag).data("object").remove();
+            }
+        });
+    });
+
+    findit = function (text) {
+        
+        var count = 0;
+        var len = $(".node").length;
+        
+        for (var iter = 0; iter < len; iter++) {
+            if ($(".node")[iter].innerText.indexOf(text) > 0) {
+                $(".node")[iter].addClass("selected");
+
+                count++;
+            } else {
+                $(".node")[iter].removeClass("selected");
+            }
+        }
+
+        alert(count + "개를 검색했습니다.");
+
+    }
+
+    onkey = function (e) {
+        if (e.keyCode === 13) {
+        	var text = $("#find_text").value;
+            findit(text);
+        }
+    }
+
+</script>
+
+<div class="screen">
+    <div class="wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svgBody" viewBox="0 0 2000 2000" style="position:absolute;" ></svg>
+    </div>
+</div>
+<img class="delete" src="./image/m.jpg" />
+<div class="searchBox" >
+    search : <input id="find_text" type="text" width="200px" onkeypress="onkey(event)"/>
+</div>
+</body>
+</html>
